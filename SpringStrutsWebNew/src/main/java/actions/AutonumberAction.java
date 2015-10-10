@@ -15,6 +15,12 @@ import domain.Autonumber;
 import service.AutonumberService;
 import service.MessagingService;
 
+/**
+ * 
+ * @author eneugebauer
+ *
+ */
+
 @ParentPackage(value = "json-default")
 @Namespace(value = "/str")
 @Results({ @Result(name = "success", location = "/str/autonumer.jsp"),
