@@ -1,0 +1,30 @@
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" id="jsform">
+
+var xml = "" + 
+"<daneWniosku>\n" + 
+"<uzytkownik>#user#</uzytkownik>\n" + 
+"<tresc>#content#</tresc>\n" + 
+"</daneWniosku>\n";
+
+var save = function()
+{
+foo = xml.replace("#user#", document.getElementById("user").value );
+foo = foo.replace("#content#", document.getElementById("content").value )
+alert(foo);
+$.post( "/sof-html/FormDataAction", foo,  function( data ) {
+	$( ".result" ).html( data );
+	});
+}
+
+</script>
+
+<div>
+	<h1>Formularz</h1>
+	<form id="f2">
+		Wnioskodawca<input id="user" name="user" placeholder="wpisz dane wnioskodawcy"/></br>
+		Tresc wniosku<textarea id="content" rows="10" cols="100" placeholder="wpisz dane wniosku"></textarea></br>
+		<input type="button" value="Zapisz" onclick="window.save()"/>
+	</form>
+</div>	

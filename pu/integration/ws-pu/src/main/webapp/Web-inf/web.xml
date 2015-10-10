@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>ws-pu</display-name>
+	<servlet>
+		<servlet-name>HelloPuServlet</servlet-name>
+		<display-name>HelloPuServlet</display-name>
+		<description></description>
+		<servlet-class>pl.ene.HelloPuServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HelloPuServlet</servlet-name>
+		<url-pattern>/hello-pu</url-pattern>
+	</servlet-mapping>
+
+</web-app>

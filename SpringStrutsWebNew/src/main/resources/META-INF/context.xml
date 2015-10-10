@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Context>
+
+ <Resource name="jdbc/std" auth="Container" type="javax.sql.DataSource"
+              username="syriusz" password="syriusz" url="jdbc:postgresql://localhost:5432/syriusz"
+              factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+              driverClassName="org.postgresql.Driver"
+              maxActive="20" maxIdle="10"/>
+
+</Context>

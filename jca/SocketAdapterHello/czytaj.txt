@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=SocketAdapterHello.rar -DgroupId=pl.ene -DartifactId=SocketAdapterHello.rar -Dversion=1.0.0 -Dpackaging=rar
+mvn install:install-file -Dfile=SocketAdapterHello.jar -DgroupId=pl.ene -DartifactId=SocketAdapterHello -Dversion=1.0.0 -Dpackaging=jar

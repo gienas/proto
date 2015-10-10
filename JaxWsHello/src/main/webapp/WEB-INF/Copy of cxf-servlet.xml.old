@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:soap="http://cxf.apache.org/bindings/soap"
+	xsi:schemaLocation="
+         http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://cxf.apache.org/jaxws
+         http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- Import statement optional but often required if you're declaring other 
+		CXF beans in this file such as CXF's JMX MBeans -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<jaxws:endpoint id="Hello" implementor="helloservice.endpoint.Hello"
+		address="/JaxWsHello">
+	</jaxws:endpoint>
+
+
+	<bean id="myPasswordCallback" class="com.mycompany.webservice.ServerPasswordCallback" />
+	<jaxws:inInterceptors>
+		<!-- SAAJ Interceptor needs to be explicitly declared only in CXF 2.0.x -->
+		<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+		<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+			<constructor-arg>
+				<map>
+					<entry key="action" value="Signature" />
+					<entry key="signaturePropFile" value="server_verf.properties" />
+					<entry key="signatureKeyIdentifier" value="DirectReference" />
+					<entry key="passwordCallbackRef">
+						<ref bean="myPasswordCallback" />
+					</entry>
+					...
+				</map>
+			</constructor-arg>
+		</bean>
+	</jaxws:inInterceptors>
+
+</beans>

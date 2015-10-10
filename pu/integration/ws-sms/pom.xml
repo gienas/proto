@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>pl.ene</groupId>
+		<artifactId>pu-integration</artifactId>
+		<relativePath>../pom.xml</relativePath>
+		<version>1.7</version>
+	</parent>
+
+	<groupId>pl.ene.integration</groupId>
+	<artifactId>ws-sms</artifactId>
+	<packaging>war</packaging>
+
+	<name>ws-sms</name>
+	<description></description>
+
+	<dependencies>
+		<!-- misc -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>pl.ene.common</groupId>
+			<artifactId>pu-business</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>pl.ene</groupId>
+			<artifactId>pu-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>ws-sms</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<inherited>false</inherited>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

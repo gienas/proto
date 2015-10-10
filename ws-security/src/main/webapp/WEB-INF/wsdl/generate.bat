@@ -1,0 +1,1 @@
+c:\jboss7\bin\wsconsume -n -p pl.ene.ws.security.test --source D:\programming\hosting\java-prototype-ene\trunk\ws-security\src\main\java D:\programming\hosting\java-prototype-ene\trunk\ws-security\src\main\webapp\WEB-INF\wsdl\Hello.wsdl

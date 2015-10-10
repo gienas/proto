@@ -1,0 +1,159 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>pl.ene.ws-security509</groupId>
+	<artifactId>JaxWsHello</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>JaxWsHello Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
+	<repositories>
+		<!--  
+		<repository>
+			<id>jboss</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+		</repository>
+		-->
+		<repository>
+			<id>maven-nuxeo</id>
+			<name>Maven Nuxeo Repository</name>
+			<url>https://maven.nuxeo.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+         <repository>
+             <id>apache.snapshots.https</id>
+             <name>Apache Development Snapshot Repository</name>
+             <url>https://repository.apache.org/content/repositories/snapshots</url>
+		 </repository>
+         
+	</repositories>
+	
+	<dependencies>
+	  
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--  
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.1.3</version>
+            <scope>compile</scope>
+		</dependency>
+		-->
+		
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        <!--   Jetty is needed if you're using the CXFServlet -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-rm</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        <!--  
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-addr</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-policy</artifactId>
+            <version>2.7.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>3.0.6.RELEASE</version>
+        </dependency> 
+	</dependencies>
+	<build>
+		<finalName>JaxWsHello</finalName>
+	</build>
+	
+	  <profiles>
+           <profile>
+            <id>client-generate</id>
+            <build>
+                <plugins>
+					<plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>2.4.1</version>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>src/main/java/client/model</directory>
+                                    <includes>
+                                        <include>**/*.java</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxws-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>wsimport</goal>
+                                </goals>
+                                <configuration>
+                                    <wsdlUrls>
+                                        <wsdlUrl>http://localhost:8080/JaxWsHello/JaxWsHello?wsdl</wsdlUrl>
+                                    </wsdlUrls>
+                                    <sourceDestDir>src/main/java</sourceDestDir>
+                                    <packageName>client.model</packageName>
+                                    <verbose>true</verbose>
+                                    <!--  
+                                    <xjcArgs>
+                                        <xjcArg>-b</xjcArg>
+                                        <xjcArg>${basedir}/src/main/resources/binding/esb-mdl-obw.xml</xjcArg>
+                                    </xjcArgs>
+                       
+                                    <xauthFile>${esb.wsdl.xauthfile}</xauthFile>
+                                    <extension>${mdl.enableSOAP12extension}</extension>
+                                    -->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+  </profiles>
+</project>

@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>pl.ene</groupId>
+        <artifactId>pu</artifactId>
+        <relativePath>../pom.xml</relativePath>
+        <version>1.7</version>
+    </parent>
+
+    <groupId>pl.ene</groupId>
+    <artifactId>pu-all</artifactId>
+    <packaging>ear</packaging>
+
+    <name>pu-all</name>
+    <description>warstwa danych</description>
+
+    <dependencies>
+        <!-- misc -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+			<dependency>
+				<groupId>pl.ene</groupId>
+				<artifactId>pu-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>pl.ene.common</groupId>
+				<artifactId>pu-business</artifactId>
+				<type>ejb</type>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>pl.ene.integration</groupId>
+				<artifactId>ws-sms</artifactId>
+				<type>war</type>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>pl.ene.integration</groupId>
+				<artifactId>ws-pu</artifactId>
+				<type>war</type>
+				<version>${project.version}</version>
+			</dependency>
+    </dependencies>
+	<build>
+		<finalName>pu</finalName>
+		<plugins>
+		  <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-ear-plugin</artifactId>
+			<!-- configuring the ear plugin -->
+			<version>2.9.1</version>
+			<configuration>
+			  <defaultLibBundleDir>lib/</defaultLibBundleDir>
+              <skinnyWars>true</skinnyWars>
+			  <modules>
+				<jarModule>
+					<groupId>pl.ene</groupId>
+					<artifactId>pu-model</artifactId>
+				</jarModule>
+				<webModule>
+					<groupId>pl.ene.integration</groupId>
+					<artifactId>ws-sms</artifactId>
+					<contextRoot>/ws-sms</contextRoot>
+				</webModule>
+				<webModule>
+					<groupId>pl.ene.integration</groupId>
+					<artifactId>ws-pu</artifactId>
+					<contextRoot>/ws-pu</contextRoot>
+				</webModule>
+				
+				<ejbModule>
+					<groupId>pl.ene.common</groupId>
+					<artifactId>pu-business</artifactId>
+				</ejbModule>
+			
+			  </modules>
+			</configuration>
+		  </plugin>
+		</plugins>
+	  </build>
+</project>

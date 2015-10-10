@@ -1,0 +1,1 @@
+mvn archetype:generate -DgroupId=pl.ene.cas-client1 -DartifactId=cas-client1 -DarchetypeArtifactId=maven-archetype-webapp

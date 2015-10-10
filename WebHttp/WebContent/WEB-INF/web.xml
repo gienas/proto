@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>WebHttp</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>heldesk_email</param-name>
+		<param-value>gienas@gmail.com</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>page1</servlet-name>
+		<jsp-file>/all/page1.jsp</jsp-file>
+		<init-param>
+			<param-name>page1_param</param-name>
+			<param-value>page1_param_value</param-value>
+		</init-param>
+		<security-role-ref>
+			<role-name>admin</role-name>
+			<role-link>admin</role-link>
+		</security-role-ref>
+	</servlet>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>TestServlet</display-name>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>servlets.TestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SessionTest</display-name>
+		<servlet-name>SessionTest</servlet-name>
+		<servlet-class>
+		tests.session.SessionTest</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Test</display-name>
+		<servlet-name>Test</servlet-name>
+		<servlet-class>pl.ene.test.Test</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>TomeeServlet</display-name>
+		<servlet-name>TomeeServlet</servlet-name>
+		<servlet-class>pl.ene.test.TomeeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>page1</servlet-name>
+		<url-pattern>/all/page1.jsp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>*.test</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SessionTest</servlet-name>
+		<url-pattern>/SessionTest</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Test</servlet-name>
+		<url-pattern>/Test</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TomeeServlet</servlet-name>
+		<url-pattern>/TomeeServlet</url-pattern>
+	</servlet-mapping>
+
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<role-name>member</role-name>
+	</security-role>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Administration</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Membership</web-resource-name>
+			<url-pattern>/member/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+			<role-name>member</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<filter>
+		<filter-name>FirstFilter</filter-name>
+		<filter-class>filters.FirstFilter</filter-class>
+		<init-param>
+			<param-name>paramFilter</param-name>
+			<param-value>1</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>FirstFilter</filter-name>
+		<!--  
+		<servlet-name>page1</servlet-name>
+		-->
+		<url-pattern>*.npi</url-pattern>		
+	</filter-mapping>
+
+	<listener>
+		<listener-class>listners.MyContextAttributeListner</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listners.MyContextListner</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listners.MyRequestAttributeListner</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listners.MyRequestListner</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listners.MySessionActivationListner</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listners.MySessionAttributeListner</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listners.MySessionListner</listener-class>
+	</listener>
+	<!-- HttpSessionBindingListener nie trzeba DD -->
+
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<scripting-invalid>false</scripting-invalid>	
+		</jsp-property-group>
+	</jsp-config>
+	
+</web-app>

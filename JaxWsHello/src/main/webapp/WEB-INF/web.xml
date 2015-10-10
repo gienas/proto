@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>JaxWsHello</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!--  For tomcat and metro 
+  <listener>
+    <listener-class>
+          com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+    </listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>JaxWsHello</servlet-name>
+    <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JaxWsHello</servlet-name>
+    <url-pattern>/JaxWsHello</url-pattern>
+  </servlet-mapping>
+  
+  -->
+  <!-- FOR CXF -->
+      <listener>
+        <!-- For Metro, use this listener-class instead: 
+             com.sun.xml.ws.transport.http.servlet.WSServletContextListener -->
+        <listener-class>
+              org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+  
+  	<!-- Remove below context-param element if using Metro -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+              classpath:META-INF/cxf/cxf.xml
+        </param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>WebServicePort</servlet-name>
+        <!-- For Metro, use this servlet-class instead: 
+             com.sun.xml.ws.transport.http.servlet.WSServlet  -->
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebServicePort</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+  
+ 
+</web-app>

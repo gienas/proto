@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<title>Insert title here</title>
+<script type="text/javascript">
+	function uruchom() {
+	
+		$( "#formcont" ).load( "sof-server/test-form.html", function( response, status, xhr ) {
+			if ( status == "error" ) {
+			var msg = "Sorry but there was an error: ";
+			$( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+			}
+			});			
+	}
+</script>
+
+</head>
+
+<body>
+	<h1>Klient SOF'a</h1>
+	<form id="f1">
+		Wybierz formularz do uruchomienia <select id="formlist">
+			<option>test</option>
+		</select> <input type="button" value="uruchom formularz" onclick="uruchom()">
+	</form>
+	<br />
+	<!-- Kontener na formularze -->
+	<div id="formcont">
+	</div>
+</body>
+</html>

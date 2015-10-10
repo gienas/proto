@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="spring-struts-jpa-web"
+		transaction-type="${persistenceUnit.transactionType}">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		${persistenceUnit.jtaDataSource}
+
+		<class>domain.User</class>
+		<class>domain.Autonumber</class>
+		<class>domain.Roles</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+
+		<properties>
+			<property name="use_sql_comments" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+
+			<!--property name="hibernate.hbm2ddl.auto" value="create" -->
+
+			<property name="hibernate.max_fetch_depth" value="10" />
+
+			<property name="hibernate.connection.url"
+				value="jdbc:postgresql://localhost/spring-struts-web" />
+			<property name="hibernate.connection.username" value="postgres" />
+			<property name="hibernate.connection.password" value="postgres" />
+
+			<property name="hibernate.transaction.manager_lookup_class"
+				value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+			<property name="javax.persistence.transactionType " value="jta" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/persistence/spring-struts-jpa-web-em" />
+			<property name="jboss.entity.manager.factory.jndi.name" value="java:/persistence/spring-struts-jpa-web-emf" />
+				
+				
+		</properties>
+
+		<!-- <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/spring-struts-jpa-web" 
+			/> <property name="hibernate.connection.username" value="postgres" /> <property 
+			name="hibernate.connection.password" value="postgres" /> -->
+
+		<!-- <property name="hibernate.c3p0.min_size" value="5" /> <property name="hibernate.c3p0.max_size" 
+			value="20" /> <property name="hibernate.c3p0.timeout" value="300" /> <property 
+			name="hibernate.c3p0.max_statements" value="50" /> <property name="hibernate.c3p0.idle_test_period" 
+			value="3000" /> -->
+
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<h:head>
+	<title>Really simple CRUD</title>
+</h:head>
+<h:body>
+	<h:form rendered="#{not empty bean.list}">
+		<h3>List items</h3>
+			<h:dataTable value="#{bean.list}" var="item" id="datatable">
+				<h:column>
+					<f:facet name="header">ID</f:facet>#{item.id}</h:column>
+				<h:column>
+					<f:facet name="header">Value</f:facet>#{item.value}</h:column>
+				<h:column>
+					<p:commandButton value="edit" ajax="false"
+						action="#{bean.edit(item)}" />
+				</h:column>
+				<h:column>
+					<p:commandButton value="delete" ajax="false"
+						action="#{bean.delete(item)}" />
+				</h:column>
+			</h:dataTable>
+	</h:form>
+	<h:panelGroup rendered="#{empty bean.list}">
+		<p>Table is empty! Please add new items.</p>
+	</h:panelGroup>
+
+	<p:panel>
+		<!-- rendered="#{!bean.edit} -->
+		<h3>Add item</h3>
+		<h:form>
+			<p>
+				Value:
+				<p:editor value="#{bean.item.value}" />
+			</p>
+			<!--  <h:inputText value="#{bean.item.value}" /> -->
+			<p>
+				<!-- update=":#{p:component('datatable')}" -->
+				<p:commandButton value="add" 
+					ajax="true" actionListener="#{bean.add}" />
+			</p>
+		</h:form>
+	</p:panel>
+
+
+	<p:panel rendered="#{bean.edit}">
+		<h3>Edit item #{bean.item.id}</h3>
+		<h:form>
+			<p>
+				Value:
+				<p:inputText value="#{bean.item.value}" />
+			</p>
+			<p>
+				<p:commandButton value="save" ajax="false" action="#{bean.save}" />
+			</p>
+		</h:form>
+	</p:panel>
+
+
+
+</h:body>
+</html>

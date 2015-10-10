@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>pl.ene</groupId>
+		<artifactId>pu-common</artifactId>
+		<relativePath>../pom.xml</relativePath>
+		<version>1.7</version>
+	</parent>
+
+	<groupId>pl.ene.common</groupId>
+	<artifactId>pu-business</artifactId>
+	<packaging>jar</packaging>
+
+	<name>pu-business</name>
+	<description>warstwa biznesowa portalu</description>
+
+	<dependencies>
+		<!-- misc -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<datasources>
+
+  <local-tx-datasource>
+    <jndi-name>StdDS</jndi-name>
+    <connection-url>jdbc:postgresql://localhost:5432/syriusz</connection-url>
+    <driver-class>org.postgresql.Driver</driver-class>
+    <user-name>syriusz</user-name>
+    <password>syriusz</password>
+    <min-pool-size>0</min-pool-size>
+    <max-pool-size>20</max-pool-size>
+    <blocking-timeout-millis>60000</blocking-timeout-millis>
+    <idle-timeout-minutes>10</idle-timeout-minutes>
+    <check-valid-connection-sql></check-valid-connection-sql>
+    <metadata>
+      <type-mapping>PostgreSQL 8.0</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+</datasources>
+
+
+

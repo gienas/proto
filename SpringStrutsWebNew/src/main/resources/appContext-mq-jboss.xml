@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration
+           http://www.springframework.org/schema/integration/spring-integration-4.1.xsd
+           http://www.springframework.org/schema/integration/jms
+           http://www.springframework.org/schema/integration/jms/spring-integration-jms-4.1.xsd
+           http://www.springframework.org/schema/jee
+           http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.1.xsd
+           http://www.springframework.org/schema/task
+           http://www.springframework.org/schema/task/spring-task-4.1.xsd
+           http://www.springframework.org/schema/integration/stream
+		   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+
+
+	<jee:jndi-lookup id="connectionFactory" jndi-name="java:/ConnectionFactory"
+		expected-type="javax.jms.ConnectionFactory" />
+
+	<!-- Odpowiedzialne za pobranie z kanału spring i zapis do kolejki jms'a -->
+	<jms:outbound-channel-adapter id="jmsOutPrimary"
+		destination-name="primaryQueue" channel="primaryQueueChannel"
+		connection-factory="connectionFactory">
+	</jms:outbound-channel-adapter>
+
+	<jms:outbound-channel-adapter id="jmsOutSecondary"
+		destination-name="secondaryQueue" channel="secondaryQueueChannel"
+		connection-factory="connectionFactory">
+	</jms:outbound-channel-adapter>
+
+
+	<!-- odpowiedzialne za odczyt z jms'a (scheduler) i zapis do kanału spring 
+		<jms:inbound-channel-adapter id="jmsin" destination-name="testQueue" channel="jmsinToStdoutChannel" 
+		> <int:poller fixed-rate="5000" max-messages-per-poll="1000"/> </jms:inbound-channel-adapter> 
+		<stream:stdout-channel-adapter id="stdout" channel="jmsinToStdoutChannel" 
+		append-newline="true"/> -->
+
+	<!-- odpowiedzialne za odczyt z jms'a (driven) i zapis do kanału spring -->
+	<bean id="primaryMessageListenerContainer" class="messaging.MyDefaultMessageListenerContainer"
+		init-method="start">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destinationName" value="primaryQueue" />
+		<property name="messageListener" ref="primaryJmsListener" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+
+	<bean id="primaryJmsListener" class="messaging.JmsMessageListenerAdapter">
+		<property name="delegate" ref="primaryMessageConsumer" />
+	</bean>
+
+	<!-- Z kolejki secondary kopiujemy cyklicznie komunikaty do primary z zastosowaniem 
+		mechanizmu jms:inbound-channel-adapter -->
+	<jms:inbound-channel-adapter id="jmsin" destination-name="secondaryQueue" channel="primaryQueueChannel">
+		<int:poller fixed-rate="60000" max-messages-per-poll="100" />
+	</jms:inbound-channel-adapter>
+
+	
+
+	<!-- Przykładowa konfiguracja listnera typu driven na kolejce secondary  
+	<bean id="secondaryMessageListenerContainer" class="messaging.MyDefaultMessageListenerContainer"
+		init-method="start">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destinationName" value="secondaryQueue" />
+		<property name="messageListener" ref="secondaryJmsListener" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+	<bean id="secondaryJmsListener" class="messaging.JmsMessageListenerAdapter">
+		<property name="delegate" ref="secondaryMessageConsumer" />
+	</bean>
+	-->
+
+
+
+</beans>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<project name="WebLoginHttp" basedir=".">
+
+
+	<property file="build.properties" />
+	<property name="war.name" value="WebHttp.war" />
+	<property name="deploy.dir" value="c:/tomcat/webapps" />
+	<target name="prepare" depends="clean">
+		<echo>Tworzenie katalogu dist</echo>
+		<mkdir dir="${dir.dist}" />
+	</target>
+
+	<target name="clean">
+		<echo>Usuwanie katalogow work oraz dist</echo>
+		<delete file="${dir.dist}/${war.name}" failonerror="false" />
+		<delete dir="${dir.dist}" />
+	</target>
+
+	<target name="dist" depends="prepare">
+		<echo> Budowanie aplikacji WEB dla projektu </echo>
+		<war destfile="${dir.dist}/${war.name}" webxml="WebContent/WEB-INF/web.xml" update="true">
+			<classes dir="build\classes" />
+			<fileset dir="WebContent">
+				<exclude name="WEB-INF/web.xml" />
+				<!-- exclude name="WEB-INF/lib/*" /> -->
+				<!--<exclude name="WEB-INF/modules/*" /> -->
+			</fileset>
+		</war>
+
+		<!--
+		<copy todir="../PWIBuild/${projetc.ejb.dir.dist.libApp}">
+			<fileset dir="WebContent/WEB-INF/lib/" includes="**/*.jar" />
+		</copy>
+
+		<copy todir="../PWIBuild/${project.web.dir.dist}/modules">
+			<fileset dir="WebContent/WEB-INF/modules/" includes="**/*.*" />
+		</copy>
+
+		<copy todir="../PWIBuild/${project.web.dir.dist}">
+			<fileset dir="${dir.dist}" includes="**/*.war" />
+		</copy>
+
+		
+		<echo file="../PWIBuild/${dir.dist}/application.xml" append="true">
+			<![CDATA[
+			<module>
+			<web>
+				<web-uri>${project.name}.war</web-uri>
+			</web>
+		</module>
+			]]>
+		</echo>
+		-->
+	</target>
+
+	<target name="deploy" depends="dist">
+		<move todir="${deploy.dir}">
+				<fileset dir="${dir.dist}" includes="**/*.war" />
+			</move>
+	</target>
+	
+</project>

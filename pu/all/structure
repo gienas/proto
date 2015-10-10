@@ -1,0 +1,10 @@
+pu
+	common
+		business - wspólna logika biznesowa
+	integration
+		ws-pu	- web service
+		ws-sms	- web service
+	model - model danych ( encje)
+	all - projekt tworzący eara
+	
+http://localhost:8080/ws-pu/hello-pu

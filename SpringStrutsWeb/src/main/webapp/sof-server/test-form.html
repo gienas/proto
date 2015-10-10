@@ -1,0 +1,27 @@
+
+
+<div>
+<script type="text/javascript">
+
+var xml = "" + 
+"<daneWniosku>\n" + 
+"<uzytkownik>#user#</uzytkownik>\n" + 
+"<tresc>#content#</tresc>\n" + 
+"</daneWniosku>\n";
+
+
+function save()
+{
+foo = xml.replace("#user#", document.getElementById("user").value );
+foo = foo.replace("#content#", document.getElementById("content").value )
+
+}
+
+</script>
+	<h1>Przyk³adowy formularz</h1>
+	<form>
+		Wnioskodawca<input id="user" name="user" placeholder="wpisz dane wnioskodawcy"/></br>
+		Treœæ wniosku<textarea id="content" rows="10" cols="100" placeholder="wpisz dane wniosku"></textarea></br>
+		<input type="button" value="Zapisz" onclick="save()">
+	</form>
+<div>	
