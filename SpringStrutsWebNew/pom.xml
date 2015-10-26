@@ -293,9 +293,9 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.core.version}</version>
-			<!-- <version>3.6.6.Final</version> -->
+			<!-- <version>3.6.6.Final</version> - -->
 			<type>jar</type>
-			<scope>compile</scope>
+			<scope>compile</scope> 
 		</dependency>
 		<!--  
 		<dependency>
