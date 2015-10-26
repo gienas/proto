@@ -297,6 +297,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -304,6 +305,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
